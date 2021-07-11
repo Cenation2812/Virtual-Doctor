@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Virtual Doctor</title>
+    <link rel="icon" href="../static/4900434_doctor_medical_medicine_nurse_stethoscope_icon (1).png">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/Patapp.css') }}" />
+    <script type="text/javascript" src="{{url_for('static', filename='jquery-1.2.6.min.js')}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Uchen&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+
+        function slideSwitch() {
+            var $active = $('#slideshow IMG.active');
+
+            if ($active.length == 0) $active = $('#slideshow IMG:last');
+
+
+            var $next = $active.next().length ? $active.next()
+                : $('#slideshow IMG:first');
+
+
+
+
+            $active.addClass('last-active');
+
+            $next.css({ opacity: 0.0 })
+                .addClass('active')
+                .animate({ opacity: 1.0 }, 1000, function () {
+                    $active.removeClass('active last-active');
+                });
+        }
+
+        $(function () {
+            setInterval("slideSwitch()", 5000);
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <navbar>
+        <nav>
+            <div class="nav-wrapper ">
+                <a class="brand-logo" id="vc"><img id="logo"
+                        src="../static/5929214_avatar_doctor_health_hospital_man_icon.png" style="width: 35px;height: 35px;">
+                    Virtual
+                    Doctor</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/firstpage">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/firstpage">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+
+    </navbar>
+    <form action="/patapp" method="POST">
+        <div class="container row">
+
+            <div class="col s4 formBox">
+
+                <h4>Login</h4>
+                <label for="email"><b>Name</b></label>
+                <input type="text" placeholder="Enter Email" name="Name" id="email" required>
+
+                <label for="psw"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="psw" required>
+                <br>
+                <a class="waves-effect waves-light btn" id="log"><input type="submit" value="find"></a>
+
+
+
+
+            </div>
+
+        </div>
+    </form>
+    <br><br><br><br><br>
+    <table border="2" class="container">
+        <h4 id="ht">Appointment Details</h4>
+        <tr>
+            <th>Sr.No</th>
+            <th>Patient-Name</th>
+            <th>Doctor-Name</th>
+            <th>Disease</th>
+            <th>Slot</th>
+            <th>Date</th>
+            <th>Address</th>
+            <th>Clinic-name</th>
+        </tr>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{doctor.patient_name}}</td>
+                <td>{{doctor.doctor_name}}</td>
+                <td>{{doctor.Disease}}</td>
+                <td>{{doctor.slot_assigned}}</td>
+                <td>{{doctor.date_assigned}}</td>
+                <td>{{doctor.daddress}}</td>
+                <td>{{doctor.clinic}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <!--end of content-->
+
+    <!-- this will work with any number of images -->
+    <!-- set the active class on whichever image you want to show up as the default 
+(otherwise this will be the last image) -->
+    <div id="slideshow">
+        <img src="../static/jeshoots-com-LAwsF-VnFzc-unsplash.jpg" alt="Slideshow Image 1" class="active" />
+        <img src="../static/li-lin-bsi7bV1SR2k-unsplash.jpg" alt="Slideshow Image 2" />
+        <img src="../static/national-cancer-institute-NFvdKIhxYlU-unsplash.jpg" alt="Slideshow Image 3" />
+        <img src="../static/jafar-ahmed-E285pJbC4uE-unsplash.jpg" alt="Slideshow Image 4" />
+        <img src="../static/sammy-williams-38Un6Oi5beE-unsplash.jpg" alt="Slideshow Image 5" />
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+    </script>
+
+</body>
+
+</html>
